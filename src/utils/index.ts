@@ -116,3 +116,176 @@ export const getNeedLoginPages = (): string[] => getAllPages('needLogin').map((p
  * 只得到 path 数组
  */
 export const needLoginPages: string[] = getAllPages('needLogin').map((page) => page.path)
+
+/**
+ * 剩余时间格式化
+ * @param {number} t - 剩余多少秒
+ * @return {object}  format - 格式后的天时分秒对象
+ */
+export function timeMuch(t: number) {
+  const format: any = {
+    d: '00',
+    h: '00',
+    m: '00',
+    s: '00',
+  }
+  if (t > 0) {
+    const d = Math.floor(t / 86400)
+    const h = Math.floor((t / 3600) % 24)
+    const m = Math.floor((t / 60) % 60)
+    const s = Math.floor(t % 60)
+    format.d = d < 10 ? `0${d}` : d
+    format.h = h < 10 ? `0${h}` : h
+    format.m = m < 10 ? `0${m}` : m
+    format.s = s < 10 ? `0${s}` : s
+  }
+  return format
+}
+// 获取时间距离当前时间
+export function getDateToNewData(timestamp: number | string | Date = new Date().getTime()) {
+  if (typeof timestamp === 'string') timestamp = new Date(timestamp).getTime()
+
+  // 补全为13位
+  const arrTimestamp: Array<string> = `${timestamp}`.split('')
+  for (let start = 0; start < 13; start++) {
+    if (!arrTimestamp[start]) arrTimestamp[start] = '0'
+  }
+  timestamp = Number(arrTimestamp.join('')) * 1
+
+  const minute = 1000 * 60
+  const hour = minute * 60
+  const day = hour * 24
+  const month = day * 30
+  const now = new Date().getTime()
+  const diffValue = now - timestamp
+
+  // 如果本地时间反而小于变量时间
+  if (diffValue < 0) return '不久前'
+
+  // 计算差异时间的量级
+  const monthC = diffValue / month
+  const weekC = diffValue / (7 * day)
+  const dayC = diffValue / day
+  const hourC = diffValue / hour
+  const minC = diffValue / minute
+
+  // 数值补0方法
+  const zero = function (value: number) {
+    if (value < 10) return `0${value}`
+
+    return value
+  }
+
+  // 使用
+  if (monthC > 12) {
+    // 超过1年，直接显示年月日
+    return (function () {
+      const date = new Date(timestamp)
+      return `${date.getFullYear()}年${zero(date.getMonth() + 1)}月${zero(date.getDate())}日`
+    })()
+  } else if (monthC >= 1) {
+    return `${Number.parseInt(`${monthC}`)}月前`
+  } else if (weekC >= 1) {
+    return `${Number.parseInt(`${weekC}`)}周前`
+  } else if (dayC >= 1) {
+    return `${Number.parseInt(`${dayC}`)}天前`
+  } else if (hourC >= 1) {
+    return `${Number.parseInt(`${hourC}`)}小时前`
+  } else if (minC >= 1) {
+    return `${Number.parseInt(`${minC}`)}分钟前`
+  }
+  return '刚刚'
+}
+
+/**
+ * 打电话
+ * @param {string<number>} phoneNumber - 数字字符串
+ * @return {Promise}
+ */
+export function callPhone(phoneNumber = '') {
+  const num = phoneNumber.toString()
+  return new Promise((resolve, reject) => {
+    uni.makePhoneCall({
+      phoneNumber: num,
+      success: () => resolve(true),
+      fail: (err) => reject(err),
+    })
+  })
+}
+
+/**
+ * 调起客户端相机扫码。
+ * @param {boolean} onlyFromCamera true 是否只允许相机扫码识别
+ * @param {Array<string>} scanType ['barCode', 'qrCode', 'datamatrix','datamatrix']
+ * @returns Promise 成功返回相关数据结构
+ */
+export function scanCode(
+  onlyFromCamera = true,
+  scanType = ['barCode', 'qrCode', 'datamatrix', 'datamatrix'],
+): Promise<string | UniApp.ScanCodeSuccessRes> {
+  return new Promise((resolve, reject) => {
+    // #ifdef H5
+    reject(new Error('不支持H5'))
+    // #endif
+    // #ifndef H5
+    uni.scanCode({
+      onlyFromCamera,
+      scanType,
+      success: (res) => resolve(res),
+      fail: (error) => reject(error),
+    })
+    // #endif
+  })
+}
+
+type openUrlType = 'navigate' | 'redirect' | 'reLaunch' | 'switchTab' | 'navigateBack'
+/**
+ *
+ * @param url string 打开的页面路径
+ * @param type openUrlType "navigate"|"redirect"|"reLaunch"|"switchTab"|"navigateBack"
+ */
+export function routerTo(url: string, type: openUrlType = 'navigate') {
+  const funType = {
+    navigate: 'navigateTo',
+    redirect: 'redirectTo',
+    switchTab: 'switchTab',
+    reLaunch: 'reLaunch',
+    navigateBack: 'navigateBack',
+  }
+  const fun = funType[type]
+  if (fun === 'navigateBack') {
+    uni.navigateBack({
+      fail(error) {
+        console.error(error)
+      },
+    })
+  } else if (fun === 'reLaunch') {
+    uni.reLaunch({
+      url,
+      fail(error) {
+        console.error(error)
+      },
+    })
+  } else if (fun === 'switchTab') {
+    uni.switchTab({
+      url,
+      fail(error) {
+        console.error(error)
+      },
+    })
+  } else if (fun === 'redirectTo') {
+    uni.redirectTo({
+      url,
+      fail(error) {
+        console.error(error)
+      },
+    })
+  } else if (fun === 'navigateTo') {
+    uni.navigateTo({
+      url,
+      fail(error) {
+        console.error(error)
+      },
+    })
+  }
+}

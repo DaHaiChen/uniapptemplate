@@ -18,8 +18,8 @@ const isMp = process.env?.UNI_PLATFORM?.startsWith('mp') ?? false
 
 const presets: Preset[] = []
 if (isMp) {
-  // 使用小程序预设
-  presets.push(presetApplet(), presetRemRpx())
+  // 使用小程序预设 mt-10 => mt-20rpx
+  presets.push(presetApplet(), presetRemRpx({ baseFontSize: 4 }))
 } else {
   presets.push(
     // 非小程序用官方预设
