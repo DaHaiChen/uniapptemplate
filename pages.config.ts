@@ -7,6 +7,9 @@ export default defineUniPages({
     navigationBarBackgroundColor: '#3875C5',
     navigationBarTextStyle: 'white',
     backgroundColor: '#FFFFFF',
+    'mp-alipay': {
+      allowsBounceVertical: 'NO',
+    },
   },
   easycom: {
     autoscan: true,

@@ -5,7 +5,11 @@
 
 interface NavigateToOptions {
   url: "/pages/index/index" |
-       "/pages/about/about";
+       "/pages/about/about" |
+       "/pages/about/shiliComponents/login" |
+       "/pages/about/shiliComponents/request" |
+       "/pages/about/shiliComponents/tabList" |
+       "/pages/about/shiliComponents/upload";
 }
 interface RedirectToOptions extends NavigateToOptions {}
 

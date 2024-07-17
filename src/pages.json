@@ -4,7 +4,10 @@
     "navigationBarTitleText": "unibest",
     "navigationBarBackgroundColor": "#3875C5",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#FFFFFF"
+    "backgroundColor": "#FFFFFF",
+    "mp-alipay": {
+      "allowsBounceVertical": "NO"
+    }
   },
   "easycom": {
     "autoscan": true,
@@ -51,6 +54,38 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "关于"
+      }
+    },
+    {
+      "path": "pages/about/shiliComponents/login",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/about/shiliComponents/request",
+      "type": "page",
+      "layout": "demo",
+      "style": {
+        "navigationBarTitleText": "请求"
+      }
+    },
+    {
+      "path": "pages/about/shiliComponents/tabList",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "tab分页列表"
+      }
+    },
+    {
+      "path": "pages/about/shiliComponents/upload",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "上传-状态一体化"
       }
     }
   ],

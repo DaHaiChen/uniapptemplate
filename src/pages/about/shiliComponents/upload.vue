@@ -14,8 +14,8 @@
     <template v-else>
       <view class="m-2">上传后返回的接口数据：</view>
       <view class="m-2">{{ data }}</view>
-      <view class="h-80 w-full">
-        <image v-if="data" :src="data || data" mode="scaleToFill" />
+      <view class="w-full center">
+        <image v-if="data" :src="data || data" class="h-100 w-100" mode="scaleToFill" />
       </view>
     </template>
   </view>
