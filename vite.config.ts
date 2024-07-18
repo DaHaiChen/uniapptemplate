@@ -12,6 +12,8 @@ import UniLayouts from '@uni-helper/vite-plugin-uni-layouts'
 import UniPlatform from '@uni-helper/vite-plugin-uni-platform'
 // @see https://github.com/uni-helper/vite-plugin-uni-manifest
 import UniManifest from '@uni-helper/vite-plugin-uni-manifest'
+
+import UniHelperComponents from '@uni-helper/vite-plugin-uni-components'
 // @see https://unocss.dev/
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -61,6 +63,11 @@ export default ({ command, mode }) => {
       UniLayouts(),
       UniPlatform(),
       UniManifest(),
+      UniHelperComponents({
+        dts: './typings/components.d.ts',
+        // 允许子目录作为组件的命名空间前缀。例如：/components/uni/uni-badge.vue -> <uni-badge />
+        directoryAsNamespace: true,
+      }),
       // UniXXX 需要在 Uni 之前引入
       Uni(),
       {
@@ -77,9 +84,9 @@ export default ({ command, mode }) => {
       },
       UnoCSS(),
       AutoImport({
-        imports: ['vue', 'uni-app'],
+        imports: ['vue', 'uni-app', 'pinia'],
         dts: 'src/types/auto-import.d.ts',
-        dirs: ['src/hooks'], // 自动导入 hooks
+        dirs: ['src/hooks', 'src/stores/**'], // 自动导入 hooks 公共组件 store
         eslintrc: { enabled: true },
         vueTemplate: true, // default false
       }),

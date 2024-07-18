@@ -6,6 +6,7 @@
 interface NavigateToOptions {
   url: "/pages/index/index" |
        "/pages/about/about" |
+       "/pages/about/shiliComponents/dragButton" |
        "/pages/about/shiliComponents/login" |
        "/pages/about/shiliComponents/request" |
        "/pages/about/shiliComponents/tabList" |

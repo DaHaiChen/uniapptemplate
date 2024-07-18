@@ -32,6 +32,10 @@ const componentsList = ref([
     name: '微信登录',
     url: '/pages/about/shiliComponents/login',
   },
+  {
+    name: '拖拽按钮',
+    url: '/pages/about/shiliComponents/dragButton',
+  },
 ])
 
 function handleToUrl(url: string) {

@@ -110,6 +110,7 @@
     "@types/wechat-miniprogram": "^3.4.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "@uni-helper/vite-plugin-uni-components": "^0.0.9",
     "@uni-helper/vite-plugin-uni-layouts": "^0.1.10",
     "@uni-helper/vite-plugin-uni-manifest": "^0.2.6",
     "@uni-helper/vite-plugin-uni-pages": "0.2.20",

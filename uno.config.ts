@@ -26,6 +26,7 @@ if (isMp) {
     presetUno(),
     // 支持css class属性化
     presetAttributify(),
+    presetRemRpx({ baseFontSize: 4 }),
   )
 }
 export default defineConfig({

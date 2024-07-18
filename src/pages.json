@@ -57,6 +57,14 @@
       }
     },
     {
+      "path": "pages/about/shiliComponents/dragButton",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "拖拽按钮"
+      }
+    },
+    {
       "path": "pages/about/shiliComponents/login",
       "type": "page",
       "layout": "default",
